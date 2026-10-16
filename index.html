@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Present Perfect Mastery Hub - English Class</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .perspective-1000 { perspective: 1000px; }
+        .transform-style-3d { transform-style: preserve-3d; }
+        .backface-hidden { backface-visibility: hidden; }
+        .rotate-y-180 { transform: rotateY(180deg); }
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: #f1f5f9; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+    </style>
+</head>
+<body class="bg-slate-100 text-slate-800 min-h-screen flex flex-col justify-between selection:bg-indigo-500 selection:text-white">
+
+    <!-- TOP HEADER WITH PROGRESS -->
+    <header class="bg-indigo-700 text-white shadow-lg sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto px-4 py-3 flex flex-wrap justify-between items-center gap-3">
+            <div class="flex items-center space-x-3">
+                <div class="bg-white text-indigo-700 p-2 rounded-xl shadow-md">
+                    <i class="fa-solid fa-graduation-cap text-2xl"></i>
+                </div>
+                <div>
+                    <h1 class="font-extrabold text-lg sm:text-xl tracking-tight leading-none">English GrammaLab</h1>
+                    <p class="text-xs text-indigo-200 mt-1 font-medium">Present Perfect Simple vs. Continuous</p>
+                </div>
+            </div>
+
+            <!-- Global Step Progress -->
+            <div class="flex items-center space-x-4">
+                <div class="hidden sm:block text-right">
+                    <span class="text-xs text-indigo-200 font-bold uppercase tracking-wider block">Global Progress</span>
+                    <span id="progress-percent" class="text-sm font-extrabold text-amber-300">0% Completed</span>
+                </div>
+                <div class="w-32 sm:w-40 bg-indigo-900/60 rounded-full h-3 p-0.5 border border-indigo-400/30 overflow-hidden">
+                    <div id="progress-bar" class="bg-amber-400 h-full rounded-full transition-all duration-500 w-0"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- NAVIGATION TABS -->
+        <nav class="bg-indigo-800/80 backdrop-blur border-t border-indigo-600/50 px-4">
+            <div class="max-w-6xl mx-auto flex overflow-x-auto no-scrollbar gap-1 text-xs sm:text-sm font-semibold">
+                <button onclick="switchTab('step1')" id="tab-step1" class="tab-btn px-4 py-3 border-b-2 border-amber-400 text-amber-300 flex items-center gap-2 whitespace-nowrap transition">
+                    <i class="fa-solid fa-book-open"></i> 1. Flashcards
+                </button>
+                <button onclick="switchTab('step2')" id="tab-step2" class="tab-btn px-4 py-3 border-b-2 border-transparent text-indigo-200 hover:text-white flex items-center gap-2 whitespace-nowrap transition">
+                    <i class="fa-solid fa-puzzle-piece"></i> 2. Sentence Match
+                </button>
+                <button onclick="switchTab('step3')" id="tab-step3" class="tab-btn px-4 py-3 border-b-2 border-transparent text-indigo-200 hover:text-white flex items-center gap-2 whitespace-nowrap transition">
+                    <i class="fa-solid fa-headphones"></i> 3. Audio Listening
+                </button>
+                <button onclick="switchTab('step4')" id="tab-step4" class="tab-btn px-4 py-3 border-b-2 border-transparent text-indigo-200 hover:text-white flex items-center gap-2 whitespace-nowrap transition">
+                    <i class="fa-solid fa-list-check"></i> 4. Grammar Quiz
+                </button>
+                <button onclick="switchTab('step5')" id="tab-step5" class="tab-btn px-4 py-3 border-b-2 border-transparent text-indigo-300/60 flex items-center gap-2 whitespace-nowrap transition cursor-not-allowed" title="Complete all tasks to unlock final report">
+                    <i class="fa-solid fa-lock" id="lock-icon"></i> 5. Final Report
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- MAIN CONTAINER -->
+    <main class="max-w-5xl mx-auto px-4 py-8 flex-grow w-full">
+
+        <!-- ================= STEP 1: FLASHCARDS ================= -->
+        <section id="view-step1" class="view-panel space-y-6">
+            <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-100 pb-4">
+                    <div>
+                        <span class="text-xs font-bold text-indigo-600 uppercase tracking-widest">Step 1 of 4</span>
+                        <h2 class="text-2xl font-extrabold text-slate-800">Grammar Review Cards</h2>
+                        <p class="text-slate-500 text-sm mt-1">Click on each card to flip it over. You must explore all 6 cards to complete this step.</p>
+                    </div>
+                    <div id="flashcard-counter" class="bg-indigo-50 border border-indigo-200 text-indigo-700 text-xs font-bold px-3 py-1.5 rounded-lg flex items-center gap-2 self-start sm:self-auto">
+                        <i class="fa-solid fa-cards"></i> <span>0 / 6 Cards Viewed</span>
+                    </div>
+                </div>
+
+                <!-- Flashcards Grid -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-6" id="flashcards-container">
+                    <!-- Dynamic rendering -->
+                </div>
+
+                <div class="flex justify-end mt-8 pt-4 border-t border-slate-100">
+                    <button onclick="switchTab('step2')" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-6 py-3 rounded-xl shadow-md transition flex items-center gap-2">
+                        <span>Next: Sentence Match</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= STEP 2: SENTENCE MATCH ================= -->
+        <section id="view-step2" class="view-panel hidden space-y-6">
+            <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-100 pb-4">
+                    <div>
+                        <span class="text-xs font-bold text-indigo-600 uppercase tracking-widest">Step 2 of 4</span>
+                        <h2 class="text-2xl font-extrabold text-slate-800">Match the Sentence Halves</h2>
+                        <p class="text-slate-500 text-sm mt-1">Pair the start of each sentence with its logical completion based on the correct tense.</p>
+                    </div>
+                    <div class="bg-amber-50 border border-amber-200 text-amber-800 text-xs font-bold px-3 py-1.5 rounded-lg">
+                        5 Sentences Required
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+                    <div class="space-y-4" id="matching-left">
+                        <!-- Left halves -->
+                    </div>
+                    <div class="space-y-4" id="matching-right">
+                        <!-- Right selects -->
+                    </div>
+                </div>
+
+                <div class="flex justify-between items-center mt-8 pt-4 border-t border-slate-100">
+                    <button onclick="switchTab('step1')" class="bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold px-5 py-2.5 rounded-xl transition">
+                        <i class="fa-solid fa-arrow-left mr-1"></i> Back
+                    </button>
+                    <button onclick="switchTab('step3')" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-6 py-3 rounded-xl shadow-md transition flex items-center gap-2">
+                        <span>Next: Audio Listening</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= STEP 3: AUDIO LISTENING ================= -->
+        <section id="view-step3" class="view-panel hidden space-y-6">
+            <!-- Instructions Banner -->
+            <div class="bg-gradient-to-r from-blue-900 to-indigo-900 text-white rounded-2xl p-6 shadow-md border border-blue-800">
+                <div class="flex items-start gap-4">
+                    <div class="bg-amber-400 text-slate-950 p-3 rounded-xl text-xl font-bold">
+                        <i class="fa-solid fa-circle-info"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-bold text-amber-300">How Does the Audio Module Work?</h3>
+                        <p class="text-sm text-blue-100 mt-1 leading-relaxed">
+                            1. Click the <strong>speaker icon button (<i class="fa-solid fa-volume-high"></i>)</strong> to listen to the prompt voice.<br>
+                            2. The system voice will read aloud the first half of a sentence in English.<br>
+                            3. Listen closely and choose option <strong>(A, B, or C)</strong> that completes the sentence logically.<br>
+                            4. You can click <em>"Show Transcript"</em> if you need to double-check what was read.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-100 pb-4">
+                    <div>
+                        <span class="text-xs font-bold text-indigo-600 uppercase tracking-widest">Step 3 of 4</span>
+                        <h2 class="text-2xl font-extrabold text-slate-800">Listening Comprehension</h2>
+                        <p class="text-slate-500 text-sm mt-1">Listen to the first part of each sentence and select the correct continuation.</p>
+                    </div>
+                    <button onclick="testTTS()" class="text-xs bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold px-3 py-2 rounded-lg transition flex items-center gap-2 self-start sm:self-auto">
+                        <i class="fa-solid fa-volume-high text-indigo-600"></i> Test Audio Voice
+                    </button>
+                </div>
+
+                <div class="space-y-6 mt-6" id="audio-questions-container">
+                    <!-- Dynamic audio prompts -->
+                </div>
+
+                <div class="flex justify-between items-center mt-8 pt-4 border-t border-slate-100">
+                    <button onclick="switchTab('step2')" class="bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold px-5 py-2.5 rounded-xl transition">
+                        <i class="fa-solid fa-arrow-left mr-1"></i> Back
+                    </button>
+                    <button onclick="switchTab('step4')" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-6 py-3 rounded-xl shadow-md transition flex items-center gap-2">
+                        <span>Next: Grammar Quiz</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= STEP 4: GRAMMAR QUIZ ================= -->
+        <section id="view-step4" class="view-panel hidden space-y-6">
+            <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-100 pb-4">
+                    <div>
+                        <span class="text-xs font-bold text-indigo-600 uppercase tracking-widest">Step 4 of 4</span>
+                        <h2 class="text-2xl font-extrabold text-slate-800">Grammar Accuracy Assessment</h2>
+                        <p class="text-slate-500 text-sm mt-1">Select the correct verb tense (Have/Has been -ing vs. Have/Has + Past Participle).</p>
+                    </div>
+                    <span class="bg-indigo-50 text-indigo-700 text-xs font-bold px-3 py-1.5 rounded-lg border border-indigo-200">
+                        5 Multiple Choice Questions
+                    </span>
+                </div>
+
+                <div class="space-y-6 mt-6" id="mcq-questions-container">
+                    <!-- Dynamic MCQ items -->
+                </div>
+
+                <div class="flex justify-between items-center mt-8 pt-4 border-t border-slate-100">
+                    <button onclick="switchTab('step3')" class="bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold px-5 py-2.5 rounded-xl transition">
+                        <i class="fa-solid fa-arrow-left mr-1"></i> Back
+                    </button>
+                    <button onclick="tryAccessReport()" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-6 py-3 rounded-xl shadow-lg transition flex items-center gap-2">
+                        <i class="fa-solid fa-flag-checkered"></i>
+                        <span>Finish & View Final Report</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= STEP 5: FINAL REPORT ================= -->
+        <section id="view-step5" class="view-panel hidden space-y-6">
+            <div class="bg-slate-900 text-white rounded-3xl p-6 sm:p-8 shadow-2xl border border-slate-800 relative overflow-hidden">
+                
+                <!-- Header -->
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 border-b border-slate-800 pb-6">
+                    <div>
+                        <span class="bg-emerald-400 text-slate-950 font-extrabold text-xs px-3 py-1 rounded-full uppercase tracking-widest">
+                            Module Completed!
+                        </span>
+                        <h2 class="text-3xl font-black text-white mt-2">Final Evaluation Report</h2>
+                        <p class="text-slate-400 text-sm mt-1">Review your answers, copy your answer key sequence, and submit your score to your teacher.</p>
+                    </div>
+
+                    <!-- Prominent Final Score -->
+                    <div class="bg-slate-800/90 border border-slate-700 rounded-2xl p-4 flex items-center space-x-4 min-w-[220px]">
+                        <div class="w-16 h-16 rounded-2xl bg-indigo-600 text-white font-black text-2xl flex items-center justify-center shadow-inner" id="report-score-percent">
+                            0%
+                        </div>
+                        <div>
+                            <span class="text-xs text-slate-400 font-medium block">Final Score</span>
+                            <span id="report-score-detail" class="text-lg font-bold text-white">0 / 15 Correct</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Student Information -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 my-6">
+                    <div>
+                        <label for="student-name" class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-2">Student Full Name <span class="text-rose-400">*</span></label>
+                        <input type="text" id="student-name" placeholder="Enter your full name" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-2">Teacher Email Address</label>
+                        <input type="email" value="Danielenglishclasses23@gmail.com" readonly class="w-full bg-slate-800/50 border border-slate-800 rounded-xl px-4 py-3 text-slate-400 font-mono text-sm cursor-not-allowed">
+                    </div>
+                </div>
+
+                <!-- Letter Key Output (A, B, C, D) -->
+                <div class="mb-6">
+                    <div class="flex items-center justify-between mb-2">
+                        <label class="block text-xs font-bold text-slate-300 uppercase tracking-wider">
+                            Formatted Letter Sequence
+                        </label>
+                        <button onclick="copyLetterAnswers()" class="text-xs bg-slate-800 hover:bg-slate-700 text-amber-300 border border-slate-700 px-3 py-1.5 rounded-lg transition font-medium flex items-center gap-1.5">
+                            <i class="fa-regular fa-copy"></i> Copy Letter Key (A,B,C,D)
+                        </button>
+                    </div>
+                    <div id="letters-sequence-box" class="bg-slate-950 font-mono text-amber-400 p-4 rounded-xl border border-slate-800 text-sm break-all leading-relaxed tracking-wide">
+                        [Generating...]
+                    </div>
+                </div>
+
+                <!-- Detailed Audit Table -->
+                <div class="mb-8">
+                    <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-3">Detailed Answer Breakdown</h4>
+                    <div class="bg-slate-950 border border-slate-800 rounded-xl overflow-hidden max-h-64 overflow-y-auto custom-scrollbar">
+                        <table class="w-full text-left text-xs sm:text-sm">
+                            <thead class="bg-slate-800 text-slate-300 font-semibold sticky top-0">
+                                <tr>
+                                    <th class="p-3">#</th>
+                                    <th class="p-3">Activity</th>
+                                    <th class="p-3">Your Answer</th>
+                                    <th class="p-3">Correct Answer</th>
+                                    <th class="p-3 text-center">Status</th>
+                                </tr>
+                            </thead>
+                            <tbody id="audit-table-body" class="divide-y divide-slate-800/60 text-slate-300">
+                                <!-- Dynamic rows -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="flex flex-col sm:flex-row items-center gap-4 pt-4 border-t border-slate-800">
+                    <button onclick="sendEmailReport()" class="w-full sm:w-auto bg-indigo-600 hover:bg-indigo-500 text-white font-bold px-6 py-3.5 rounded-xl shadow-lg transition flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-paper-plane"></i>
+                        <span>Send Email to Teacher Daniel</span>
+                    </button>
+
+                    <button onclick="copyFullReportText()" class="w-full sm:w-auto bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold px-6 py-3.5 rounded-xl border border-slate-700 transition flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-copy"></i>
+                        <span>Copy Full Report Text</span>
+                    </button>
+                </div>
+
+                <!-- Toast Notification -->
+                <div id="toast-message" class="hidden mt-4 p-4 rounded-xl bg-emerald-500/20 border border-emerald-500/50 text-emerald-300 text-sm flex items-center gap-3">
+                    <i class="fa-solid fa-circle-check text-emerald-400 text-lg"></i>
+                    <span id="toast-text">Action completed successfully!</span>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-white border-t border-slate-200 py-4 text-center text-slate-500 text-xs">
+        <p>Present Perfect Interactive Hub • Submit homework to: <strong class="text-indigo-600">Danielenglishclasses23@gmail.com</strong></p>
+    </footer>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        // DATA STRUCTURES (ENGLISH)
+
+        // 1. FLASHCARDS
+        const FLASHCARDS = [
+            { id: 1, title: "Process vs. Result", tense: "Continuous vs Simple", front: "Which tense focuses on the DURATION of an activity, regardless of whether it's finished?", backText: "Continuous: 'I have been reading all day' (Emphasis on the ongoing action).", keywords: "for, since, all day, lately" },
+            { id: 2, title: "Quantities & Achievements", tense: "Present Perfect Simple", front: "Used when stating the exact NUMBER of completed items or achievements.", backText: "Simple: 'I have written 5 essays today' (Focus on the final total).", keywords: "how many, 3 times, finished, already" },
+            { id: 3, title: "Visible Present Effects", tense: "Present Perfect Continuous", front: "When there is clear physical evidence in the present from a recent activity.", backText: "Continuous: 'His clothes are dirty because he has been painting.'", keywords: "tired, wet, dirty, breathless" },
+            { id: 4, title: "Life Experiences", tense: "Present Perfect Simple", front: "Refers to general life experiences gained at an unspecified time before now.", backText: "Simple: 'Have you ever visited Japan?'", keywords: "ever, never, before, once" },
+            { id: 5, title: "Stative Verbs Exception", tense: "Simple Only", front: "Stative verbs like KNOW, LIKE, BELONG, HAVE rarely take continuous forms.", backText: "Correct: 'I have known her for years' (NOT: have been knowing).", keywords: "know, like, possess, believe" },
+            { id: 6, title: "Recently Completed Event", tense: "Present Perfect Simple", front: "Recent news or completed actions with immediate present consequences.", backText: "Simple: 'I have just lost my keys.'", keywords: "just, already, yet" }
+        ];
+
+        // 2. MATCHING SENTENCES
+        const MATCHING_DATA = [
+            { id: "M1", left: "1. She is out of breath because she...", right: "has been running in the park for an hour.", correctLetter: "A" },
+            { id: "M2", left: "2. I am confident for the test because I...", right: "have already studied all the topics.", correctLetter: "B" },
+            { id: "M3", left: "3. Their hands are covered in flour because they...", right: "have been baking cakes since morning.", correctLetter: "C" },
+            { id: "M4", left: "4. He knows London very well because he...", right: "has lived there three times before.", correctLetter: "D" },
+            { id: "M5", left: "5. How long have you...", right: "been learning English at this school?", correctLetter: "E" }
+        ];
+
+        // 3. AUDIO PROMPTS
+        const AUDIO_DATA = [
+            {
+                id: "A1",
+                spokenText: "I have been working on my laptop...",
+                transcript: "I have been working on my laptop...",
+                options: [
+                    { letter: "A", text: "all morning, so my eyes are very tired.", correct: true },
+                    { letter: "B", text: "and I have completed zero tasks.", correct: false },
+                    { letter: "C", text: "yesterday afternoon continuously.", correct: false }
+                ]
+            },
+            {
+                id: "A2",
+                spokenText: "She has sent twenty job emails...",
+                transcript: "She has sent twenty job emails...",
+                options: [
+                    { letter: "A", text: "since two hours ago continuously.", correct: false },
+                    { letter: "B", text: "this week, hoping for an interview.", correct: true },
+                    { letter: "C", text: "all day without stopping ever.", correct: false }
+                ]
+            },
+            {
+                id: "A3",
+                spokenText: "Why is the kitchen so messy? Because I...",
+                transcript: "Why is the kitchen so messy? Because I...",
+                options: [
+                    { letter: "A", text: "have been cooking dinner for the family.", correct: true },
+                    { letter: "B", text: "have already eaten everything.", correct: false },
+                    { letter: "C", text: "never cook anything here.", correct: false }
+                ]
+            },
+            {
+                id: "A4",
+                spokenText: "Have you ever traveled...",
+                transcript: "Have you ever traveled...",
+                options: [
+                    { letter: "A", text: "for three weeks uninterrupted?", correct: false },
+                    { letter: "B", text: "to a foreign country by plane?", correct: true },
+                    { letter: "C", text: "been traveling every single year?", correct: false }
+                ]
+            },
+            {
+                id: "A5",
+                spokenText: "They have known each other...",
+                transcript: "They have known each other...",
+                options: [
+                    { letter: "A", text: "since they were in primary school.", correct: true },
+                    { letter: "B", text: "been knowing for five years.", correct: false },
+                    { letter: "C", text: "for they are best friends.", correct: false }
+                ]
+            }
+        ];
+
+        // 4. MULTIPLE CHOICE QUESTIONS
+        const MCQ_DATA = [
+            {
+                id: "Q1",
+                question: "1. Look at John! He is covered in mud. He ____________ football with his friends.",
+                options: [
+                    { letter: "A", text: "has been playing" },
+                    { letter: "B", text: "has played" },
+                    { letter: "C", text: "plays" },
+                    { letter: "D", text: "played" }
+                ],
+                correctLetter: "A"
+            },
+            {
+                id: "Q2",
+                question: "2. How many pages of the novel ____________ so far?",
+                options: [
+                    { letter: "A", text: "have you been reading" },
+                    { letter: "B", text: "have you read" },
+                    { letter: "C", text: "did you read" },
+                    { letter: "D", text: "are you reading" }
+                ],
+                correctLetter: "B"
+            },
+            {
+                id: "Q3",
+                question: "3. Maria ____________ in Paris since 2020, and she really loves it.",
+                options: [
+                    { letter: "A", text: "has been living" },
+                    { letter: "B", text: "is living" },
+                    { letter: "C", text: "lives" },
+                    { letter: "D", text: "was living" }
+                ],
+                correctLetter: "A"
+            },
+            {
+                id: "Q4",
+                question: "4. I haven't finished writing my report ____________.",
+                options: [
+                    { letter: "A", text: "already" },
+                    { letter: "B", text: "yet" },
+                    { letter: "C", text: "since" },
+                    { letter: "D", text: "for" }
+                ],
+                correctLetter: "B"
+            },
+            {
+                id: "Q5",
+                question: "5. We ____________ this family car for over ten years.",
+                options: [
+                    { letter: "A", text: "have been having" },
+                    { letter: "B", text: "have had" },
+                    { letter: "C", text: "are having" },
+                    { letter: "D", text: "had" }
+                ],
+                correctLetter: "B"
+            }
+        ];
+
+        // STUDENT TRACKING STATE
+        const studentAnswers = {
+            viewedCards: new Set(),
+            matching: {},
+            audio: {},
+            mcq: {}
+        };
+
+        // ON LOAD INITIALIZATION
+        window.onload = function() {
+            renderFlashcards();
+            renderMatching();
+            renderAudioQuestions();
+            renderMCQ();
+            updateProgress();
+        };
+
+        // RENDER STEP 1
+        function renderFlashcards() {
+            const container = document.getElementById('flashcards-container');
+            container.innerHTML = FLASHCARDS.map(card => `
+                <div class="perspective-1000 h-56 cursor-pointer group" onclick="clickFlashcard(${card.id}, this)">
+                    <div class="card-inner relative w-full h-full duration-500 transform-style-3d transition-transform rounded-2xl shadow-sm border border-slate-200 bg-white">
+                        <div class="absolute inset-0 w-full h-full rounded-2xl p-5 flex flex-col justify-between backface-hidden">
+                            <div>
+                                <div class="flex justify-between items-center mb-2">
+                                    <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-indigo-100 text-indigo-700">${card.tense}</span>
+                                    <i class="fa-solid fa-rotate text-slate-300"></i>
+                                </div>
+                                <h4 class="font-bold text-slate-800 text-sm mb-1">${card.title}</h4>
+                                <p class="text-xs text-slate-600 leading-relaxed">${card.front}</p>
+                            </div>
+                            <span class="text-[11px] font-semibold text-indigo-600 text-center">Click to Flip <i class="fa-solid fa-arrow-right text-[9px]"></i></span>
+                        </div>
+                        <div class="absolute inset-0 w-full h-full rounded-2xl p-5 flex flex-col justify-between backface-hidden rotate-y-180 bg-slate-900 text-white">
+                            <div>
+                                <span class="text-[10px] text-amber-400 font-bold uppercase block mb-1">Example:</span>
+                                <p class="text-xs font-medium italic text-slate-200 bg-slate-800 p-2.5 rounded-lg border border-slate-700 mb-2">"${card.backText}"</p>
+                                <span class="text-[10px] text-indigo-300 font-bold block">Keywords: ${card.keywords}</span>
+                            </div>
+                            <span class="text-[10px] text-slate-400 text-center"><i class="fa-solid fa-rotate-left"></i> Flip back</span>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function clickFlashcard(id, el) {
+            const inner = el.querySelector('.card-inner');
+            inner.classList.toggle('rotate-y-180');
+            studentAnswers.viewedCards.add(id);
+            document.getElementById('flashcard-counter').innerHTML = `<i class="fa-solid fa-cards"></i> <span>${studentAnswers.viewedCards.size} / 6 Cards Viewed</span>`;
+            updateProgress();
+        }
+
+        // RENDER STEP 2
+        function renderMatching() {
+            const leftCol = document.getElementById('matching-left');
+            const rightCol = document.getElementById('matching-right');
+
+            leftCol.innerHTML = MATCHING_DATA.map(item => `
+                <div class="p-3.5 bg-slate-50 border border-slate-200 rounded-xl text-xs sm:text-sm font-medium text-slate-800">
+                    ${item.left}
+                </div>
+            `).join('');
+
+            rightCol.innerHTML = MATCHING_DATA.map((item, idx) => `
+                <div class="p-2 bg-slate-50 border border-slate-200 rounded-xl flex items-center gap-2">
+                    <span class="text-xs font-bold text-slate-400 w-5 text-center">${idx + 1}</span>
+                    <select onchange="selectMatch('${item.id}', this.value)" class="w-full bg-white border border-slate-300 rounded-lg p-2 text-xs sm:text-sm font-medium focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+                        <option value="">-- Select completing phrase --</option>
+                        ${MATCHING_DATA.map(opt => `
+                            <option value="${opt.correctLetter}">(${opt.correctLetter}) ${opt.right}</option>
+                        `).join('')}
+                    </select>
+                </div>
+            `).join('');
+        }
+
+        function selectMatch(id, val) {
+            if (val) studentAnswers.matching[id] = val;
+            else delete studentAnswers.matching[id];
+            updateProgress();
+        }
+
+        // RENDER STEP 3
+        function renderAudioQuestions() {
+            const container = document.getElementById('audio-questions-container');
+            container.innerHTML = AUDIO_DATA.map((q, idx) => `
+                <div class="bg-slate-50 border border-slate-200 rounded-xl p-4">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-3">
+                        <div class="flex items-center gap-3">
+                            <button onclick="playAudioPrompt('${q.spokenText.replace(/'/g, "\\'")}')" class="bg-indigo-600 hover:bg-indigo-700 text-white w-10 h-10 rounded-xl flex items-center justify-center shadow transition active:scale-95">
+                                <i class="fa-solid fa-volume-high text-lg"></i>
+                            </button>
+                            <div>
+                                <span class="text-xs font-bold text-indigo-600 uppercase">Audio Prompt #${idx + 1}</span>
+                                <h4 class="text-xs sm:text-sm font-semibold text-slate-800">Listen to sentence start</h4>
+                            </div>
+                        </div>
+                        <button onclick="toggleTranscript('trans_${q.id}')" class="text-xs text-indigo-600 underline font-medium">
+                            Show Transcript
+                        </button>
+                    </div>
+
+                    <p id="trans_${q.id}" class="hidden text-xs bg-indigo-50 text-indigo-900 p-2.5 rounded-lg border border-indigo-200 mb-3 italic">
+                        "${q.transcript}"
+                    </p>
+
+                    <div class="space-y-2">
+                        ${q.options.map(opt => `
+                            <label class="flex items-center gap-3 p-2.5 bg-white border border-slate-200 rounded-lg cursor-pointer hover:bg-indigo-50/50 transition">
+                                <input type="radio" name="audio_${q.id}" value="${opt.letter}" onchange="selectAudio('${q.id}', '${opt.letter}')" class="text-indigo-600">
+                                <span class="text-xs sm:text-sm text-slate-700"><strong>(${opt.letter})</strong> ${opt.text}</span>
+                            </label>
+                        `).join('')}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function playAudioPrompt(text) {
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+                const u = new SpeechSynthesisUtterance(text);
+                u.lang = 'en-US';
+                u.rate = 0.85;
+                window.speechSynthesis.speak(u);
+            } else {
+                alert("Your browser does not support native web speech audio.");
+            }
+        }
+
+        function testTTS() {
+            playAudioPrompt("Hello! I have been studying English all day.");
+        }
+
+        function toggleTranscript(id) {
+            const el = document.getElementById(id);
+            el.classList.toggle('hidden');
+        }
+
+        function selectAudio(id, letter) {
+            studentAnswers.audio[id] = letter;
+            updateProgress();
+        }
+
+        // RENDER STEP 4
+        function renderMCQ() {
+            const container = document.getElementById('mcq-questions-container');
+            container.innerHTML = MCQ_DATA.map(q => `
+                <div class="bg-slate-50 border border-slate-200 rounded-xl p-4">
+                    <h4 class="font-bold text-slate-800 text-xs sm:text-sm mb-3">${q.question}</h4>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                        ${q.options.map(opt => `
+                            <label class="flex items-center gap-3 p-2.5 bg-white border border-slate-200 rounded-lg cursor-pointer hover:bg-indigo-50/50 transition">
+                                <input type="radio" name="mcq_${q.id}" value="${opt.letter}" onchange="selectMCQ('${q.id}', '${opt.letter}')" class="text-indigo-600">
+                                <span class="text-xs sm:text-sm text-slate-700"><strong>${opt.letter}.</strong> ${opt.text}</span>
+                            </label>
+                        `).join('')}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function selectMCQ(id, letter) {
+            studentAnswers.mcq[id] = letter;
+            updateProgress();
+        }
+
+        // PROGRESS EVALUATION AND LOCKING
+        function getCompletionStatus() {
+            const matchingDone = Object.keys(studentAnswers.matching).length === MATCHING_DATA.length;
+            const audioDone = Object.keys(studentAnswers.audio).length === AUDIO_DATA.length;
+            const mcqDone = Object.keys(studentAnswers.mcq).length === MCQ_DATA.length;
+            const cardsDone = studentAnswers.viewedCards.size >= 4;
+
+            const totalItems = MATCHING_DATA.length + AUDIO_DATA.length + MCQ_DATA.length;
+            const currentAnswered = Object.keys(studentAnswers.matching).length + Object.keys(studentAnswers.audio).length + Object.keys(studentAnswers.mcq).length;
+
+            const allCompleted = matchingDone && audioDone && mcqDone && cardsDone;
+            const percentage = Math.round((currentAnswered / totalItems) * 100);
+
+            return { allCompleted, percentage, currentAnswered, totalItems };
+        }
+
+        function updateProgress() {
+            const status = getCompletionStatus();
+            document.getElementById('progress-percent').innerText = `${status.percentage}% Completed`;
+            document.getElementById('progress-bar').style.width = `${status.percentage}%`;
+
+            const tab5 = document.getElementById('tab-step5');
+            const lockIcon = document.getElementById('lock-icon');
+
+            if (status.allCompleted) {
+                tab5.classList.remove('text-indigo-300/60', 'cursor-not-allowed');
+                tab5.classList.add('text-indigo-200', 'hover:text-white');
+                lockIcon.className = "fa-solid fa-unlock text-emerald-400";
+            }
+        }
+
+        // NAVIGATION CONTROL
+        function switchTab(stepId) {
+            if (stepId === 'step5') {
+                const status = getCompletionStatus();
+                if (!status.allCompleted) {
+                    alert("⚠️ ACCESS LOCKED:\n\nYou must complete ALL activities before viewing the Final Report.\n\n- Explore the grammar flashcards.\n- Complete all 5 sentence pairings.\n- Answer all 5 listening audio prompts.\n- Complete all 5 grammar quiz questions.");
+                    return;
+                }
+                buildFinalReport();
+            }
+
+            document.querySelectorAll('.view-panel').forEach(el => el.classList.add('hidden'));
+            document.getElementById(`view-${stepId}`).classList.remove('hidden');
+
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('border-amber-400', 'text-amber-300');
+                btn.classList.add('border-transparent', 'text-indigo-200');
+            });
+
+            const activeBtn = document.getElementById(`tab-${stepId}`);
+            activeBtn.classList.remove('border-transparent', 'text-indigo-200');
+            activeBtn.classList.add('border-amber-400', 'text-amber-300');
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function tryAccessReport() {
+            switchTab('step5');
+        }
+
+        // FINAL REPORT CALCULATION
+        function calculateResults() {
+            let correct = 0;
+            const audit = [];
+            const letters = [];
+
+            // 1. Matching
+            MATCHING_DATA.forEach((m, idx) => {
+                const st = studentAnswers.matching[m.id] || "-";
+                const ok = st === m.correctLetter;
+                if (ok) correct++;
+                audit.push({ num: idx + 1, type: "Sentence Match", student: st, correct: m.correctLetter, status: ok });
+                letters.push(`${idx + 1}-${st}`);
+            });
+
+            // 2. Audio
+            AUDIO_DATA.forEach((a, idx) => {
+                const st = studentAnswers.audio[a.id] || "-";
+                const correctOpt = a.options.find(o => o.correct).letter;
+                const ok = st === correctOpt;
+                if (ok) correct++;
+                audit.push({ num: idx + 6, type: "Audio Listening", student: st, correct: correctOpt, status: ok });
+                letters.push(`${idx + 6}-${st}`);
+            });
+
+            // 3. MCQ
+            MCQ_DATA.forEach((q, idx) => {
+                const st = studentAnswers.mcq[q.id] || "-";
+                const ok = st === q.correctLetter;
+                if (ok) correct++;
+                audit.push({ num: idx + 11, type: "Grammar Quiz", student: st, correct: q.correctLetter, status: ok });
+                letters.push(`${idx + 11}-${st}`);
+            });
+
+            const total = MATCHING_DATA.length + AUDIO_DATA.length + MCQ_DATA.length;
+            const percent = Math.round((correct / total) * 100);
+
+            return { correct, total, percent, audit, lettersFormatted: letters.join(', ') };
+        }
+
+        function buildFinalReport() {
+            const res = calculateResults();
+
+            document.getElementById('report-score-percent').innerText = `${res.percent}%`;
+            document.getElementById('report-score-detail').innerText = `${res.correct} / ${res.total} Correct`;
+            document.getElementById('letters-sequence-box').innerText = `LETTER SEQUENCE KEY: [ ${res.lettersFormatted} ]`;
+
+            const tbody = document.getElementById('audit-table-body');
+            tbody.innerHTML = res.audit.map(item => `
+                <tr class="hover:bg-slate-900">
+                    <td class="p-3 font-mono text-slate-400">${item.num}</td>
+                    <td class="p-3 font-semibold text-white">${item.type}</td>
+                    <td class="p-3 font-mono text-amber-300">${item.student}</td>
+                    <td class="p-3 font-mono text-emerald-400">${item.correct}</td>
+                    <td class="p-3 text-center">
+                        ${item.status 
+                            ? '<span class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400 font-bold text-xs"><i class="fa-solid fa-check"></i> Correct</span>'
+                            : '<span class="px-2 py-0.5 rounded bg-rose-500/20 text-rose-400 font-bold text-xs"><i class="fa-solid fa-xmark"></i> Incorrect</span>'
+                        }
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        // CLIPBOARD & MAILTO ACTIONS
+        function copyLetterAnswers() {
+            const res = calculateResults();
+            const name = document.getElementById('student-name').value || "Student";
+            const str = `Student: ${name} | Score: ${res.correct}/${res.total} (${res.percent}%) | Answers: ${res.lettersFormatted}`;
+            copyToClipboard(str, "Letter sequence key copied to clipboard!");
+        }
+
+        function copyFullReportText() {
+            const res = calculateResults();
+            const name = document.getElementById('student-name').value || "Student";
+
+            let txt = `=== ENGLISH ASSESSMENT REPORT: PRESENT PERFECT ===\n`;
+            txt += `Student Name: ${name}\n`;
+            txt += `Score: ${res.correct}/${res.total} (${res.percent}%)\n`;
+            txt += `Answer Key Sequence: [ ${res.lettersFormatted} ]\n\n`;
+            txt += `DETAILED BREAKDOWN:\n`;
+            res.audit.forEach(a => {
+                txt += `#${a.num} (${a.type}): Student=${a.student} | Correct=${a.correct} [${a.status ? 'CORRECT' : 'INCORRECT'}]\n`;
+            });
+
+            copyToClipboard(txt, "Full report text copied to clipboard!");
+        }
+
+        function copyToClipboard(text, msg) {
+            const ta = document.createElement("textarea");
+            ta.value = text;
+            document.body.appendChild(ta);
+            ta.select();
+            document.execCommand("copy");
+            document.body.removeChild(ta);
+            showToast(msg);
+        }
+
+        function sendEmailReport() {
+            const name = document.getElementById('student-name').value.trim();
+            if (!name) {
+                alert("Please enter your Full Name before sending the report.");
+                document.getElementById('student-name').focus();
+                return;
+            }
+
+            const res = calculateResults();
+            const teacherEmail = "Danielenglishclasses23@gmail.com";
+            const subject = encodeURIComponent(`Present Perfect Report - ${name} (${res.percent}%)`);
+
+            let body = `Dear Teacher Daniel,\n\nHere are my final results for the Present Perfect Simple vs. Continuous activity:\n\n`;
+            body += `Student Full Name: ${name}\n`;
+            body += `Score: ${res.correct} / ${res.total} (${res.percent}%)\n`;
+            body += `Answer Sequence Key: ${res.lettersFormatted}\n\n`;
+            body += `=== DETAILED ANSWER AUDIT ===\n`;
+
+            res.audit.forEach(a => {
+                body += `Question ${a.num} (${a.type}): Student = ${a.student} | Correct = ${a.correct}\n`;
+            });
+
+            body += `\nSent automatically via English GrammaLab.`;
+
+            window.location.href = `mailto:${teacherEmail}?subject=${subject}&body=${encodeURIComponent(body)}`;
+            showToast("Opening default email app...");
+        }
+
+        function showToast(msg) {
+            const toast = document.getElementById('toast-message');
+            document.getElementById('toast-text').innerText = msg;
+            toast.classList.remove('hidden');
+            setTimeout(() => toast.classList.add('hidden'), 3500);
+        }
+    </script>
+</body>
+</html>
